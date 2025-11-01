@@ -1,0 +1,83 @@
+.vscode
+/ingestion/.env
+description.md
+
+# backend
+## Dependencies
+backend/node_modules/
+backend/npm-debug.log*
+backend/yarn-debug.log*
+backend/yarn-error.log*
+
+# Build output
+backend/dist/
+backend/build/
+
+# Environment variables
+backend/.env
+backend/.env.local
+backend/.env.*.local
+
+# Logs
+backend/logs/
+backend/*.log
+
+# IDE
+backend/.vscode/
+backend/.idea/
+backend/*.swp
+backend/*.swo
+
+# OS
+backend/.DS_Store
+backend/Thumbs.db
+
+# Testing
+backend/coverage/
+backend/.nyc_output/
+
+# Temporary files
+backend/tmp/
+backend/temp/
+
+
+# frontend
+## Dependencies
+frontend/node_modules/
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+
+# Build output
+frontend/dist/
+frontend/build/
+
+# Environment variables
+frontend/.env
+frontend/.env.local
+frontend/.env.*.local
+
+# Logs
+frontend/logs/
+frontend/*.log
+
+# IDE
+frontend/.vscode/
+frontend/.idea/
+frontend/*.swp
+frontend/*.swo
+
+# OS
+frontend/.DS_Store
+frontend/Thumbs.db
+
+# Testing
+frontend/coverage/
+frontend/.nyc_output/
+
+# Temporary files
+frontend/tmp/
+frontend/temp/
+
+#ingestion
+/ingestion/.venv

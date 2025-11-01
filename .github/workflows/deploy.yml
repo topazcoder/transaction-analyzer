@@ -1,0 +1,127 @@
+name: Deploy Serverless Backend
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+env:
+  AWS_REGION: us-west-1
+  NODE_VERSION: "22.x"
+
+jobs:
+  dependency-cache:
+    name: Setup Dependency Cache
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: "npm"
+          cache-dependency-path: backend/package-lock.json
+
+      - name: Verify lock file exists
+        run: |
+          cd backend
+          if [ ! -f package-lock.json ]; then
+            echo "❌ package-lock.json not found. Run 'npm install' locally first."
+            exit 1
+          fi
+
+      - name: Install dependencies
+        run: |
+          cd backend
+          npm ci  # Uses package-lock.json for exact versions
+
+  test:
+    name: Run Tests
+    runs-on: ubuntu-latest
+    needs: dependency-cache
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js and restore cache
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: "npm"
+          cache-dependency-path: backend/package-lock.json
+
+      - name: Install dependencies (cached)
+        run: |
+          cd backend
+          npm ci
+
+      - name: Validate dependencies
+        run: |
+          cd backend
+          npm audit --audit-level moderate
+          npx license-checker --summary
+
+      - name: Type check
+        run: |
+          cd backend
+          npx tsc --noEmit --skipLibCheck
+
+  deploy-serverless-apis:
+    name: Deploy Serverless REST APIs
+    runs-on: ubuntu-latest
+    needs: [test]
+    if: github.ref == 'refs/heads/main'
+    environment: dev
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: "npm"
+          cache-dependency-path: backend/package-lock.json
+
+      - name: Install dependencies
+        run: |
+          cd backend
+          npm ci  # Critical: uses package-lock.json
+
+      - name: Build application
+        run: |
+          cd backend
+          npm run build
+
+      - name: Verify production dependencies
+        run: |
+          cd backend
+          npm ls --production --depth=0
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Deploy to AWS
+        run: |
+          cd backend
+          npm run deploy:dev
+        env:
+          NODE_ENV: production
+          CI: true
+
+      - name: Health check
+        run: |
+          # Wait for deployment to complete
+          sleep 30
+          # Test the API endpoint
+          curl -f https://byit9b38a0.execute-api.us-west-1.amazonaws.com/dev/items/all || exit 1
