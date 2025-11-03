@@ -1,5 +1,5 @@
 
-<h1 style="text-align: center;">Transaction Analyzer</h1>
+<center><h1 style="text-align: center;">Transaction Analyzer</h1></center>
 
 <img src="img/intro.png" />
 
