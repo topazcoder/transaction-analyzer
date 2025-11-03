@@ -1,5 +1,5 @@
 
-<h1 style="text-align: center;">Transaction Analyzer</h1>
+<center><h1 style="text-align: center;">Transaction Analyzer</h1></center>
 
 <img src="img/intro.png" />
 
@@ -191,17 +191,3 @@ Frontend: build and host the static `build/` folder (the repo already contains a
 1. Fork the repo
 2. Create a feature branch
 3. Open a PR with a clear description and tests where appropriate
-
-## License
-
-MIT — see `LICENSE` (add one if missing).
-
-## A few next steps / suggestions
-
-- Add a small `docker-compose.yml` for running Postgres/Neo4j locally for development tests.
-- Add a short API section describing GraphQL schema/endpoints and example requests.
-- Add CI checks (GitHub Actions) to run lint and tests on push/PR.
-
----
-
-If you want, I can also add a short API examples section (example GraphQL query / REST curl calls) or wire up a GitHub Actions CI file next.
