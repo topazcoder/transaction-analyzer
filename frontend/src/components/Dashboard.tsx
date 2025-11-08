@@ -121,7 +121,7 @@ export const Dashboard: React.FC = () => {
           <div className='text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3'>Recent Chats</div>
           {/* Chat history items would go here */}
           <div className='space-y-2'>
-            {[1, 2, 3].map(i => (
+            {[1].map(i => (
               <button
                 key={i}
                 className='w-full text-left py-3 px-4 rounded-xl bg-gray-800/30 hover:bg-gray-800/50 text-gray-400 hover:text-gray-200 transition-all duration-200 text-sm truncate group'
@@ -140,7 +140,7 @@ export const Dashboard: React.FC = () => {
                       d='M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z'
                     />
                   </svg>
-                  Previous conversation {i}
+                  Research similarity between ...
                 </div>
               </button>
             ))}

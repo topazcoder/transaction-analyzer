@@ -7,9 +7,9 @@
 
 Transaction Analyzer is a small full-stack project that provides an API and frontend for creating and managing transaction-related items, plus an ingestion pipeline for importing blockchain data into a graph database. The repository contains:
 
-- `backend/` — TypeScript Node.js API (Serverless-ready) with GraphQL and REST handlers.
-- `frontend/` — React + TypeScript single-page app.
-- `ingestion/` — Python scripts and dependencies to import blockchain data (uses `web3`, `neo4j`, etc.).
+- `backend/` - TypeScript Node.js API (Serverless-ready) with GraphQL and REST handlers.
+- `frontend/` - React + TypeScript single-page app.
+- `ingestion/` - Python scripts and dependencies to import blockchain data (uses `web3`, `neo4j`, etc.).
 
 ## Project structure
 
@@ -56,7 +56,7 @@ Quick tree of the repository (trimmed to important files and folders):
 
 ```
 
-This is a compact view — explore each folder for more files and implementation details.
+This is a compact view - explore each folder for more files and implementation details.
 
 ## Key features
 
@@ -71,7 +71,7 @@ This is a compact view — explore each folder for more files and implementation
 - Backend is built with TypeScript and can be deployed with Serverless to AWS (Cognito + DynamoDB resources defined in `serverless.yml`).
 - Ingestion (Python) pulls blockchain data and writes to Neo4j.
 
-## Quick start — prerequisites
+## Quick start - prerequisites
 
 - Node.js >= 18, npm >= 9
 - Python 3.10+ (for ingestion)
@@ -79,7 +79,7 @@ This is a compact view — explore each folder for more files and implementation
 
 Work in Bash on Windows (WSL / Git Bash) or a UNIX-like shell for the commands below.
 
-## Backend — run locally (development)
+## Backend - run locally (development)
 
 1. Open a terminal and install dependencies:
 
@@ -96,11 +96,11 @@ npm run dev
 
 Useful backend scripts (from `backend/package.json`):
 
-- `npm run dev` — nodemon + ts-node (development)
-- `npm run build` — compile TypeScript
-- `npm run start` — run compiled app (node dist/index.js)
-- `npm run test` — run Jest tests
-- `npm run deploy:dev` / `npm run deploy:prod` — build + `serverless deploy --stage <stage>`
+- `npm run dev` - nodemon + ts-node (development)
+- `npm run build` - compile TypeScript
+- `npm run start` - run compiled app (node dist/index.js)
+- `npm run test` - run Jest tests
+- `npm run deploy:dev` / `npm run deploy:prod` - build + `serverless deploy --stage <stage>`
 
 Serverless configuration notes (from `serverless.yml`):
 
@@ -108,7 +108,7 @@ Serverless configuration notes (from `serverless.yml`):
 - Stages: `dev`, `prod` (use `--stage` when deploying)
 - Environment variables injected by Serverless: `TABLE_NAME`, `STAGE`, `REGION`, `USER_POOL_ID`, `USER_POOL_CLIENT_ID`, `ALLOWED_ORIGIN`
 
-## Frontend — run locally
+## Frontend - run locally
 
 1. Install dependencies and start dev server:
 
@@ -156,12 +156,12 @@ Frontend tests (if present) can be executed with Jest from the `frontend/` folde
 
 Typical env vars used by the backend (some are set via `serverless.yml` when deployed):
 
-- NODE_ENV — development|production
-- TABLE_NAME — DynamoDB table name (Serverless creates `items-table-${stage}`)
-- STAGE — deployment stage (dev|prod)
-- REGION — AWS region
-- USER_POOL_ID / USER_POOL_CLIENT_ID — Cognito identifiers
-- ALLOWED_ORIGIN — e.g. `http://localhost:3000`
+- NODE_ENV - development|production
+- TABLE_NAME - DynamoDB table name (Serverless creates `items-table-${stage}`)
+- STAGE - deployment stage (dev|prod)
+- REGION - AWS region
+- USER_POOL_ID / USER_POOL_CLIENT_ID - Cognito identifiers
+- ALLOWED_ORIGIN - e.g. `http://localhost:3000`
 
 If you run the services locally, create a `.env` file in `backend/` with the variables your local environment needs (and add it to `.gitignore`).
 
